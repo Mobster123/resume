@@ -1,0 +1,649 @@
+/* ==========================================================================
+   Aryan Chand - Resume site stylesheet
+   Order: tokens > reset > element selectors > layout utilities > nav (ID)
+          > hero > timeline > cards > advisory / education grids > footer
+          > media query
+   ========================================================================== */
+
+
+/* ---- 1. Custom properties (palette + type) ---- */
+
+:root {
+  /* Palette: the only colours used anywhere on the page */
+  --ink:        #0E1116;   /* page background */
+  --ink-2:      #171B22;   /* card / surface background */
+  --line:       #2A303A;   /* borders, dividers, timeline rail */
+  --paper:      #EDE9E1;   /* primary text (warm off-white) */
+  --muted:      #9AA1AC;   /* secondary text, dates */
+  --accent:     #F7931A;   /* Bitcoin orange: links, dots, one highlight per section */
+  --accent-dim: #5A3A12;   /* accent hover backgrounds, tag backgrounds */
+  --ink-glass:  rgba(14, 17, 22, 0.85); /* --ink at 85% for the sticky nav */
+
+  /* Type families (loaded from Google Fonts in the HTML head) */
+  --font-heading: "Fraunces", Georgia, "Times New Roman", serif;
+  --font-body:    "Inter", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --font-mono:    "IBM Plex Mono", "SFMono-Regular", Consolas, monospace;
+
+  /* Layout */
+  --container-max: 1040px;
+  --gutter: 24px;
+  --section-gap: 96px;
+  --nav-height: 64px;
+}
+
+
+/* ---- 2. Reset ---- */
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html,
+body,
+h1, h2, h3,
+p,
+ul, ol {
+  margin: 0;
+  padding: 0;
+}
+
+
+/* ---- 3. Element selectors (base) ---- */
+/* Plain tag selectors set the default look for every element of that type.
+   Class and ID rules further down only override what needs to differ. */
+
+html {
+  scroll-behavior: smooth;
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  background-color: var(--ink);
+  color: var(--paper);
+  font-family: var(--font-body);
+  font-weight: 400;
+  font-size: 1rem;              /* 16px */
+  line-height: 1.65;
+  -webkit-font-smoothing: antialiased;
+}
+
+h1 {
+  font-family: var(--font-heading);
+  font-weight: 600;
+  font-size: 3.5rem;
+  line-height: 1.05;
+  letter-spacing: -0.02em;
+}
+
+h2 {
+  font-family: var(--font-heading);
+  font-weight: 600;
+  font-size: 2rem;
+  line-height: 1.15;
+  letter-spacing: -0.01em;
+}
+
+h3 {
+  font-family: var(--font-body);
+  font-weight: 500;
+  font-size: 1.2rem;
+  line-height: 1.3;
+}
+
+p {
+  max-width: 68ch;
+}
+
+a {
+  color: var(--accent);
+  text-decoration: none;
+  transition: color 150ms ease;
+}
+
+a:hover {
+  color: var(--paper);
+}
+
+ul {
+  list-style: disc;
+  padding-left: 1.25rem;
+}
+
+ul li::marker {
+  color: var(--accent);
+}
+
+ul li + li {
+  margin-top: 0.4rem;
+}
+
+section {
+  scroll-margin-top: 80px;      /* anchors clear the sticky nav */
+}
+
+::selection {
+  background-color: var(--accent);
+  color: var(--ink);
+}
+
+a:focus-visible,
+button:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 3px;
+  border-radius: 2px;
+}
+
+
+/* ---- 4. Layout utilities ---- */
+
+.container {
+  width: 100%;
+  max-width: var(--container-max);
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: var(--gutter);
+  padding-right: var(--gutter);
+}
+
+.section {
+  padding-top: var(--section-gap);
+}
+
+.section-head {
+  margin-bottom: 2.5rem;
+}
+
+/* Small Plex Mono label that sits above every section h2 */
+.section-label {
+  font-family: var(--font-mono);
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--muted);
+  margin-bottom: 0.5rem;
+}
+
+/* Shared "meta" style: dates, years, small labels */
+.meta {
+  font-family: var(--font-mono);
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--muted);
+  white-space: nowrap;
+}
+
+/* Thin separator used inside role / descriptor lines */
+.sep {
+  color: var(--line);
+  margin: 0 0.35em;
+}
+
+
+/* ---- 5. Navigation (#site-nav) ---- */
+/* ID selector: there is exactly one nav on the page, so it is styled by ID. */
+
+#site-nav {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  background-color: var(--ink-glass);
+  -webkit-backdrop-filter: blur(12px);
+  backdrop-filter: blur(12px);
+  border-bottom: 1px solid var(--line);
+}
+
+#site-nav .nav-inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  min-height: var(--nav-height);
+  gap: 1rem;
+}
+
+#site-nav .nav-brand {
+  font-family: var(--font-heading);
+  font-weight: 600;
+  font-size: 1.35rem;
+  color: var(--paper);
+  letter-spacing: -0.02em;
+}
+
+#site-nav .nav-brand:hover {
+  color: var(--accent);
+}
+
+#site-nav .nav-links {
+  display: flex;
+  flex-wrap: wrap;
+  list-style: none;
+  padding: 0;
+  gap: 1.75rem;
+}
+
+#site-nav .nav-links li + li {
+  margin-top: 0;
+}
+
+#site-nav .nav-links a {
+  position: relative;
+  display: inline-block;
+  font-family: var(--font-mono);
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--paper);
+  padding: 0.25rem 0;
+}
+
+/* Underline drawn with a pseudo-element that scales in from the left */
+#site-nav .nav-links a::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 1px;
+  background-color: var(--accent);
+  transform: scaleX(0);
+  transform-origin: left center;
+  transition: transform 150ms ease;
+}
+
+#site-nav .nav-links a:hover {
+  color: var(--accent);
+}
+
+#site-nav .nav-links a:hover::after,
+#site-nav .nav-links a:focus-visible::after {
+  transform: scaleX(1);
+}
+
+
+/* ---- 6. Hero ---- */
+
+.hero {
+  position: relative;           /* containing block for the absolute glyph */
+  overflow: hidden;
+  min-height: 70vh;
+  display: flex;
+  align-items: center;          /* vertical centring */
+  padding-top: 4rem;
+  padding-bottom: 4rem;
+  border-bottom: 1px solid var(--line);
+}
+
+/* Decorative Bitcoin glyph, absolutely positioned, purely visual */
+.hero-glyph {
+  position: absolute;
+  right: -4rem;
+  top: 50%;
+  transform: translateY(-50%);
+  font-family: var(--font-heading);
+  font-weight: 600;
+  font-size: 28rem;
+  line-height: 1;
+  color: var(--paper);
+  opacity: 0.04;
+  pointer-events: none;
+  user-select: none;
+}
+
+.hero-inner {
+  position: relative;           /* sits above the glyph */
+  z-index: 1;
+}
+
+.hero h1 {
+  margin-bottom: 1rem;
+}
+
+.hero-tagline {
+  font-family: var(--font-mono);
+  font-size: 0.9rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin-bottom: 1.75rem;
+}
+
+.hero-summary {
+  font-size: 1.1rem;
+  max-width: 60ch;
+  margin-bottom: 1rem;
+}
+
+.hero-location {
+  font-family: var(--font-mono);
+  font-size: 0.8rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-bottom: 2.25rem;
+}
+
+.hero-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+}
+
+/* Buttons (shared base + two modifiers) */
+.btn {
+  display: inline-block;
+  font-family: var(--font-mono);
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  padding: 0.8rem 1.4rem;
+  border-radius: 6px;
+  border: 1px solid var(--accent);
+  transition: background-color 150ms ease, color 150ms ease, border-color 150ms ease;
+}
+
+.btn--solid {
+  background-color: var(--accent);
+  color: var(--ink);
+}
+
+.btn--solid:hover {
+  background-color: var(--paper);
+  border-color: var(--paper);
+  color: var(--ink);
+}
+
+.btn--ghost {
+  background-color: transparent;
+  color: var(--paper);
+  border-color: var(--line);
+}
+
+.btn--ghost:hover {
+  border-color: var(--accent);
+  color: var(--accent);
+  background-color: var(--accent-dim);
+}
+
+
+/* ---- 7. Timeline (Experience) ---- */
+
+.timeline {
+  position: relative;           /* containing block for the rail */
+  list-style: none;
+  padding-left: 2.25rem;
+}
+
+/* The vertical rail, drawn once down the left of the whole list */
+.timeline::before {
+  content: "";
+  position: absolute;
+  left: 4px;
+  top: 0.4rem;
+  bottom: 0.4rem;
+  width: 2px;
+  background-color: var(--line);
+}
+
+.timeline-entry {
+  position: relative;           /* containing block for the dot */
+}
+
+.timeline-entry + .timeline-entry {
+  margin-top: 3rem;
+}
+
+/* The dot, absolutely positioned so it sits centred on the rail */
+.timeline-entry::before {
+  content: "";
+  position: absolute;
+  left: calc(-2.25rem + 5px - 5px);   /* rail centre (4px + 1px) minus half the dot */
+  top: 0.45rem;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background-color: var(--accent);
+  box-shadow: 0 0 0 4px var(--ink);   /* punches a gap in the rail around the dot */
+}
+
+/* Role / company on the left, dates on the right */
+.entry-head {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 0.5rem 2rem;
+  align-items: start;
+  margin-bottom: 1rem;
+}
+
+.entry-org {
+  font-weight: 400;
+  margin-top: 0.15rem;
+}
+
+.entry-desc {
+  color: var(--muted);
+  font-size: 0.95rem;
+  margin-top: 0.1rem;
+}
+
+.timeline-entry ul {
+  max-width: 68ch;
+}
+
+
+/* ---- 8. Cards (Projects + Extracurricular) ---- */
+/* Class selector reuse: .card is the one component used by both the Projects
+   grid and the Extracurricular grid. .card--compact only changes spacing. */
+
+.card-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 24px;
+}
+
+/* Extracurricular: a fixed two-column variant of the same grid */
+.card-grid--two {
+  grid-template-columns: repeat(2, 1fr);
+}
+
+.card {
+  background-color: var(--ink-2);
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  padding: 28px;
+  transition: transform 200ms ease, border-color 200ms ease;
+}
+
+.card:hover {
+  transform: translateY(-3px);
+  border-color: var(--accent);
+}
+
+.card h3 {
+  margin-bottom: 0.25rem;
+}
+
+.card-link {
+  display: inline-block;
+  font-family: var(--font-mono);
+  font-size: 0.8rem;
+  letter-spacing: 0.04em;
+  margin-bottom: 0.75rem;
+}
+
+.card-role {
+  color: var(--muted);
+  font-size: 0.95rem;
+  margin-bottom: 1rem;
+}
+
+.card ul {
+  font-size: 0.95rem;
+}
+
+/* Modifier: tighter padding, smaller heading, nothing else changes */
+.card--compact {
+  padding: 20px 22px;
+}
+
+.card--compact h3 {
+  font-size: 1.05rem;
+  margin-bottom: 0.6rem;
+}
+
+
+/* ---- 9. Advisory + Education grids ---- */
+
+/* Advisory: label column left, content right */
+.advisory {
+  display: grid;
+  grid-template-columns: 160px 1fr;
+  gap: 1rem 2rem;
+  align-items: start;
+}
+
+.advisory-label {
+  padding-top: 0.35rem;
+}
+
+.advisory-body h3 {
+  margin-bottom: 0.25rem;
+}
+
+.advisory-body .entry-desc {
+  margin-bottom: 1rem;
+}
+
+.advisory-body ul {
+  max-width: 68ch;
+}
+
+/* Education: same 1fr auto pattern as the timeline, without the rail */
+.edu-list {
+  border-top: 1px solid var(--line);
+}
+
+.edu-row {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 0.5rem 2rem;
+  align-items: start;
+  padding: 1.5rem 0;
+  border-bottom: 1px solid var(--line);
+}
+
+
+/* ---- 10. Footer (Contact) ---- */
+
+footer {
+  text-align: center;
+  padding-bottom: 4rem;
+  margin-top: var(--section-gap);
+  border-top: 1px solid var(--line);
+}
+
+footer .section-label,
+footer h2,
+footer p {
+  margin-left: auto;
+  margin-right: auto;
+}
+
+footer h2 {
+  margin-bottom: 1.5rem;
+}
+
+.footer-email {
+  display: inline-block;
+  font-family: var(--font-heading);
+  font-weight: 600;
+  font-size: 1.75rem;
+  letter-spacing: -0.01em;
+  word-break: break-all;
+  margin-bottom: 1rem;
+}
+
+.footer-location {
+  margin-bottom: 3rem;
+}
+
+.footer-copy {
+  font-size: 0.8rem;
+  color: var(--muted);
+}
+
+
+/* ---- 11. Media query: single breakpoint at 720px ---- */
+
+@media (max-width: 720px) {
+
+  :root {
+    --section-gap: 64px;
+  }
+
+  h1 {
+    font-size: 2.6rem;
+  }
+
+  h2 {
+    font-size: 1.7rem;
+  }
+
+  /* Nav: brand on its own line, links wrap beneath it, centred */
+  #site-nav .nav-inner {
+    flex-direction: column;
+    align-items: center;
+    padding-top: 0.75rem;
+    padding-bottom: 0.75rem;
+    gap: 0.5rem;
+  }
+
+  #site-nav .nav-links {
+    justify-content: center;
+    gap: 0.75rem 1.25rem;
+  }
+
+  /* Hero: shrink the glyph so it does not dominate a narrow screen */
+  .hero {
+    min-height: auto;
+    padding-top: 3.5rem;
+    padding-bottom: 3.5rem;
+  }
+
+  .hero-glyph {
+    font-size: 16rem;
+    right: -5rem;
+    opacity: 0.03;
+  }
+
+  /* Timeline and education rows: dates stack under the heading */
+  .entry-head,
+  .edu-row {
+    grid-template-columns: 1fr;
+  }
+
+  .meta {
+    white-space: normal;
+  }
+
+  /* Cards: every grid collapses to a single column */
+  .card-grid,
+  .card-grid--two {
+    grid-template-columns: 1fr;
+  }
+
+  /* Advisory: label sits above the content */
+  .advisory {
+    grid-template-columns: 1fr;
+    gap: 0.5rem;
+  }
+
+  .advisory-label {
+    padding-top: 0;
+  }
+
+  .footer-email {
+    font-size: 1.3rem;
+  }
+}
