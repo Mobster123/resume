@@ -288,8 +288,8 @@ button:focus-visible {
   min-width: 0;
 }
 
-/* Portrait: a circle with an offset accent ring drawn by an absolutely
-   positioned pseudo-element behind it */
+/* Portrait: a circle with a concentric accent ring drawn by an absolutely
+   positioned pseudo-element around it */
 .hero-photo {
   position: relative;           /* containing block for the ring */
   flex: 0 0 auto;
@@ -300,10 +300,9 @@ button:focus-visible {
 .hero-photo::before {
   content: "";
   position: absolute;
-  inset: 0;
-  transform: translate(14px, 14px);
+  inset: -12px;                 /* even 12px gap on every side */
   border-radius: 50%;
-  border: 2px solid var(--accent-dim);
+  border: 1px solid var(--accent-dim);
 }
 
 .hero-photo img {
@@ -644,7 +643,7 @@ footer h2 {
   }
 
   .hero-photo::before {
-    transform: translate(8px, 8px);
+    inset: -8px;
   }
 
   /* Timeline and education rows: dates stack under the heading */
